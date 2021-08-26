@@ -1,0 +1,20 @@
+<table id="miTabla">
+    <thead>
+        <tr>
+            <td>Producto</td>
+            <td>Precio</td>
+            <td>Thumbnail</td>
+        </tr>
+    </thead>        
+    <tbody>
+            {{#each productos}}
+            <tr>
+
+                <td>{{this.title}}</td>
+                <td>{{this.precio}}</td>
+                <td><img style="width: 100px" src="{{this.thumbnail}}"></img>
+                </td>
+            </tr>
+            {{/each}}
+    </tbody>
+</table>
