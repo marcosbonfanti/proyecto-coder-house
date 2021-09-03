@@ -8,19 +8,16 @@ router.get('/', carritoController.getCartProducts);
 
 router.get(
   '/:id',
-  carritoController.checkProductCartExists,
   carritoController.getCartProducts
 );
 
 router.post(
   '/:id',
-  productsController.checkProductExists,
   carritoController.addProducts
 );
 
 router.delete(
   '/:id',
-  carritoController.checkProductCartExists,
   carritoController.deleteProducts
 );
 

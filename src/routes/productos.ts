@@ -8,7 +8,7 @@ router.get('/', productsController.getProducts);
 
 router.get(
   '/:id',
-  productsController.checkProductExists,
+  //productsController.checkProductExists,
   productsController.getProducts
 );
 
@@ -22,14 +22,12 @@ router.post(
 router.put(
   '/:id',
   checkAdmin,
-  productsController.checkProductExists,
   productsController.updateProducts
 );
 
 router.delete(
   '/:id',
   checkAdmin,
-  productsController.checkProductExists,
   productsController.deleteProducts
 );
 

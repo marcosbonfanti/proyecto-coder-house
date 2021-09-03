@@ -1,8 +1,4 @@
-let productos = [
-  { id: 1, nombre: 'lapiz', precio: 200 },
-  { id: 2, nombre: 'lapiz2', precio: 250 },
-  { id: 3, nombre: 'lapiz3', precio: 260 },
-];
+import { mySQLDB } from '../services/db';
 
 interface newProduct {
   nombre: string;
@@ -15,44 +11,32 @@ interface Product {
   precio: number;
 }
 
-class Productos {
-  find(id: number): Product | undefined {
-    return productos.find((aProduct) => aProduct.id === Number(id));
+class ProductosSQL {
+
+  async get(id: number){
+    return mySQLDB.from('productos').where({ id: id }).select();
   }
 
-  get(id?: number) {
-    if (id) {
-      return productos.filter((aProduct) => aProduct.id === id);
-    }
-    return productos;
+  async getAll() {
+    return mySQLDB.from('productos').select();
   }
 
-  add(data: newProduct) {
-    const newItem: Product = {
-      id: productos.length + 1,
-      nombre: data.nombre,
-      precio: data.precio,
-    };
-
-    productos.push(newItem);
-
-    return newItem;
+  async add(data: newProduct) {
+    return mySQLDB('productos').insert(data);
   }
 
-  update(id: number, data: newProduct){
-    const newItem: Product = {
-      id: id,
-      nombre: data.nombre,
-      precio: data.precio,
-    };
-    productos[productos.findIndex(o => o.id ==  id)] = newItem;
-
+  async update(id:number, data: newProduct) {
+    return mySQLDB.from('productos').where({ id }).update(data);
   }
 
-  delete(id: number) {
-    productos = productos.filter((aProduct) => aProduct.id !== id);
-    return productos;
+  async delete(id: number) {
+    return mySQLDB.from('productos').where({ id }).del();
   }
+  
+  async query(query: object) {
+    return mySQLDB.from('productos').where(query);
+  }
+
 }
 
-export const productsPersistencia = new Productos();
+export const productosSQL = new ProductosSQL();

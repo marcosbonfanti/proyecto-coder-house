@@ -1,4 +1,4 @@
-import { productsPersistencia } from '../persistencia/productos'
+import { productosSQL } from '../persistencia/productos'
 
 let productosCarrito = [
   { id: 1, nombre: 'lapiz', precio: 200 },
@@ -24,7 +24,7 @@ class Carrito {
   }
 
 	add(id: number) {
-		const productData = productsPersistencia.get(id);
+		const productData = productosSQL.get(id);
 		const newCartItem = {
 			id: productosCarrito.length + 1,
 			nombre: productData[0].nombre,
