@@ -1,8 +1,11 @@
 import Server from './services/server';
+import {connect} from './services/mongodb';
 import { mySQLDB } from './services/db';
 
 
 const puerto = process.env.PORT || 8080;
+
+connect()
 
 mySQLDB.schema.hasTable('productos').then((exists) => {
 	if (!exists) {
