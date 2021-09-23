@@ -15,6 +15,7 @@ mySQLDB.schema.hasTable('productos').then((exists) => {
 				productosTable.increments('id');
 				productosTable.string('nombre').notNullable();
 				productosTable.integer('precio').notNullable();
+				productosTable.string('thumbnail').notNullable();
 			})
 			.then(() => {
 				console.log('DONE');

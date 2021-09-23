@@ -6,7 +6,7 @@ export const mySQLDB = knex({
       host: '127.0.0.1',
       user: 'root',
       password: 'mypass',
-      database: 'prueba',
+      database: 'productos',
     },
     pool: { min: 0, max: 7 },
   });

@@ -4,6 +4,7 @@ import * as http from 'http';
 import { initWSServer } from './socket'
 import apiRouter from '../routes/index';
 import handlebars from 'express-handlebars';
+import vistaRouter from '../routes/vista';
 
 const app = express();
 
@@ -29,6 +30,7 @@ app.engine(
 
 app.use(express.json());
 app.use('/api', apiRouter);
+app.use('/productos', vistaRouter);
 
 app.get('/', (req, res) => {
     const datos = []
