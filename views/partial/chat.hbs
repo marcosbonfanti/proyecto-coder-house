@@ -4,34 +4,43 @@
   </div>
   <ul id='messages' class='messages'></ul>
   <div class='bottom_wrapper clearfix'>
-    <form id='form-Chat'>
-      <div class='message_input_wrapper'>
-        <input
-          id='email'
-          name='email'
-          class='message_input'
-          type='email'
-          size='64'
-          maxLength='64'
-          required
-          placeholder='Ingrese eMail (ejemplo@gmail.com)'
-        />
+        <form id='form-chat'>
+            <div class='form-group'>
+                <label for='email'>Email</label>
+                <input class='form-control' type='email' name='email' id='email' required>
+            </div>
+            <div class='form-group'>
+                <label for='nombre'>Nombre</label>
+                <input class='form-control' type='text' name='nombre' id='nombre' required>
+            </div>
+            <div class='form-group'>
+                <label for='apellido'>Apellido</label>
+                <input class='form-control' type='text' name='apellido' id='apellido' required>
+            </div>
+            <div class='form-group'>
+                <label for='alias'>Alias</label>
+                <input class='form-control' type='text' name='alias' id='alias' required>
+            </div>
+            <div class='form-group'>
+                <label for='edad'>Edad</label>
+                <input class='form-control' type='number' name='edad' id='edad' required>
+            </div>
+            <div class='form-group'>
+                <label for='avatar'>Avatar</label>
+                <input class='form-control' type='text' name='avatar' id='avatar' required>
+            </div>
+            <div class='form-group'>
+                <label for='mensaje'>Mensaje</label>
+                <input class='form-control' type='mensaje' name='mensaje' id='mensaje' required>
+            </div>
+            <div class='mt-2'>
+                <input type='submit' class='btn btn-warning'> 
+            </div>
+        </form>
+    <div class='mt-4' id='mensajesContainer'>
 
-      </div>
-      <div class='message_input_wrapper'>
+    </div>
 
-        <input
-          id='text'
-          name='text'
-          class='message_input'
-          placeholder='Ingrese texto...'
-          required
-        />
-      </div>
-      <button type='submit' class='send_message'>
-        SEND
-      </button>
-    </form>
   </div>
 </div>
 <div class='message_template'>

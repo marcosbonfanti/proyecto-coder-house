@@ -1,40 +1,61 @@
-const socket = io.connect();
-let submitChat = document.getElementById('form-Chat');
+const socket = io();
+
+const formMensaje = document.getElementById('form-chat');
+const mensajesContainer = document.getElementById('mensajesContainer');
+
+let date = new Date();
+let now = date.toLocaleString();
 
 socket.emit('askMessages');
 
-socket.on('updateChat', (messages) => {
-    messages.forEach((message) => {
-      renderChat(message);
-    });
+formMensaje.addEventListener('submit', (event) => {
+  event.preventDefault();
+  if (email.value && mensaje.value) {
+    let data = {
+      author: {
+        email: email.value,
+        nombre: nombre.value,
+        apellido: apellido.value,
+        alias: alias.value,
+        edad: edad.value,
+        avatar: avatar.value,
+      },
+      text: mensaje.value,
+    };
+    console.log(data),
+    console.log('EMITIENDO SOCKET');
+
+    socket.emit('new-message', data);
+    email.value = '';
+    nombre.value = '';
+    apellido.value = '';
+    (alias.value = ''), (edad.value = ''), (avatar.value = '');
+    mensaje.value = '';
+  }
 });
 
-submitChat.addEventListener('submit', (e) => {
-    let form = submitChat.getElementsByTagName('input');
-    let inputTxt = document.getElementById('text');
-    let inputs = new Object();
-    e.preventDefault();
-  
-    for (let index = 0; index < form.length; index++) {
-      inputs[form[index].name] = form[index].value;
-    }
-    socket.emit('new-message', inputs);
-    inputTxt.value = '';
+socket.on('update-chat', (mensajes) => {
+  const holdingSchema = new schema.Entity('holding', {
+    messages: [message],
   });
 
-renderChat = (data) => {
-    let chatUl = document.getElementById('messages');
-    let newElement = document.createElement('li');
-    newElement.className = 'message left appeared';
-    let htmlMessage = `
-    <div class="avatar"></div>
-    <div class="text_wrapper">
-        <span class="email">${data.email}</span>
-        <span class="date"> [ ${data.date} ]: </span>
-        <span class="text">${data.text}</span>
-    </div>`;
-    newElement.innerHTML = htmlMessage;
-    chatUl.appendChild(newElement);
-    chatUl.scrollTo(0, document.body.scrollHeight);
-};
-  
+  const denormalizedData = denormalize(
+    mensajes.result,
+    holdingSchema,
+    mensajes.entities
+  );
+  denormalizedData.forEach(data => {
+    renderMessages(data);    
+  });
+});
+
+
+function renderMessages(mensaje){
+  let p = document.createElement('p');
+  p.innerHTML = `
+        <span class='mx-2 mensaje__email'>${mensaje.author.email}</span>
+        <span class='mx-2 mensaje__time'>${mensaje.author.nombre}</span>
+        <span class='mx-2 mensaje__text'>${mensaje.text}</span>`;
+  mensajesContainer.appendChild(p);
+
+}
