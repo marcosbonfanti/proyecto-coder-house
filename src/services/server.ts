@@ -9,8 +9,7 @@ import session from 'express-session';
 
 
 const myUser = 'pepe';
-const myPassword = 'BokitaTheBiggest';
-const oneDay = 1000 * 60;
+const myPassword = 'password';
 
 
 const app = express();
