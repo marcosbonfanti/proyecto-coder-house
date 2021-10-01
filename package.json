@@ -29,8 +29,10 @@
     "typescript": "^4.3.5"
   },
   "dependencies": {
+    "@types/express-session": "^1.17.4",
     "express": "^4.17.1",
     "express-handlebars": "^5.3.3",
+    "express-session": "^1.17.2",
     "faker": "^5.5.3",
     "knex": "^0.95.10",
     "moment": "^2.29.1",
