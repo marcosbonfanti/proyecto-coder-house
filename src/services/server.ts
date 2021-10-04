@@ -1,11 +1,15 @@
 import express from 'express';
 import path from 'path';
+import cookieParser from 'cookie-parser';
 import * as http from 'http';
 import { initWSServer } from './socket'
 import apiRouter from '../routes/index';
 import handlebars from 'express-handlebars';
 import vistaRouter from '../routes/vista';
 import session from 'express-session';
+import config from '../config';
+import MongoStore from 'connect-mongo';
+const advancedOptions = { useNewUrlParser: true, useUnifiedTopology: true };
 
 
 const myUser = 'pepe';
@@ -34,15 +38,23 @@ app.engine(
   })
 );
 
+const StoreOptions = {
+  store: MongoStore.create({
+    mongoUrl: config.MONGO_ATLAS_URL
+  }),
+  secret: 'shhhhhhhhhhhhhhhhhhhhh',
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+      maxAge: 40000
+  }
+};
+
 app.use(express.json());
-app.use(
-  session({
-    secret: 'thisismysecrctekeyfhrgfgrfrty84fwir767',
-    cookie: { maxAge: 10*1000 },
-    saveUninitialized: true,
-    resave: false,
-  })
-);
+
+app.use(cookieParser());
+app.use(session(StoreOptions));
+
 app.use('/api', apiRouter);
 app.use('/productos', vistaRouter);
 
