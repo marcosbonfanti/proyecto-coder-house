@@ -38,7 +38,7 @@ app.use(express.json());
 app.use(
   session({
     secret: 'thisismysecrctekeyfhrgfgrfrty84fwir767',
-    cookie: { maxAge: 5000 },
+    cookie: { maxAge: 10*1000 },
     saveUninitialized: true,
     resave: false,
   })
@@ -47,7 +47,16 @@ app.use('/api', apiRouter);
 app.use('/productos', vistaRouter);
 
 app.get('/', (req, res) => {
-    const datos = []
+    let loggedIn = false;
+    let usernameSession
+    if(req.session['loggedIn']){
+      loggedIn = true
+      usernameSession = req.session['username']
+    }
+    const datos = {
+      loggedIn: loggedIn,
+      username: usernameSession
+    };
     res.render('main', datos);
 });
 
@@ -56,16 +65,18 @@ app.get('/login', (req, res) => {
 
   if (username == myUser && password == myPassword) {
     req.session['loggedIn'] = true;
-    req.session['contador'] = 1;
-    req.session['admin'] = true;
+    req.session['username'] = username;
     console.log(req.session);
-    res.render('bienvenido')
+    res.redirect('/')
   } else res.status(401).json({ msg: 'no estas autorizado' });
 });
 
 app.get('/logout', (req, res) => {
-  req.session.destroy;
-  res.redirect('/');
+  console.log("Estoy en logout")
+  req.session.destroy((data) => {
+    res.redirect('/');
+  });
+  
 });
 
 const myServer = http.createServer(app);

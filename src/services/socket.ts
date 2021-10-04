@@ -17,7 +17,6 @@ export const initWSServer = (server:any) => {
 
         socket.on('askMessages', () => {
             messagesPersistencia.getMessages().then((data) => {
-                console.log(data);
                 socket.emit('updateChat', data);
             });
           });

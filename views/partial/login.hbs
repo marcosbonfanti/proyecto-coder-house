@@ -1,3 +1,9 @@
+{{#if loggedIn }}
+
+<h1><i>Bienvenido  {{ username }}</i></h1>
+<button class="btn btn-danger my-5" onclick="location.href='/logout'">LOGOUT</button>
+{{else}}
+
 <form id="Login" action="/login" method="GET">
   <ul>
     <li>
@@ -5,7 +11,7 @@
       <input type="text" id="Nombre" name="username">
     </li>
     <li>
-      <label for="password">Precio:</label>
+      <label for="password">Password:</label>
       <input type="text" id="password" name="password">
     </li>
     <li class="button">
@@ -13,3 +19,5 @@
     </li>
   </ul>
 </form>
+
+{{/if}}
