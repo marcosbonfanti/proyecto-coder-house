@@ -66,7 +66,6 @@ app.get('/login', (req, res) => {
   if (username == myUser && password == myPassword) {
     req.session['loggedIn'] = true;
     req.session['username'] = username;
-    console.log(req.session);
     res.redirect('/')
   } else res.status(401).json({ msg: 'no estas autorizado' });
 });
